@@ -85,10 +85,9 @@ You can access them directly via URL:
 
 ### 🛠️ Admin Routes
 
-| Page          | Path             | Description                      | Access     |
-|---------------|------------------|----------------------------------|-----------|
-| Verification  | `/admin/verify`  | Approve/reject scores            | Admin Only|
-| Draw Engine   | `/admin/draw`    | Run & publish draws              | Admin Only|
+| Page            | Path    | Description                                              | Access     |
+|-----------------|---------|----------------------------------------------------------|-----------|
+| Admin Dashboard | `/admin` | Unified hub for verification, draws, users, and winners. | Admin Only|
 
 ---
 
@@ -150,4 +149,3 @@ RAZORPAY_KEY_ID=your_key
 RAZORPAY_KEY_SECRET=your_secret
 RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
 RAZORPAY_PLAN_ID=your_plan_id
-

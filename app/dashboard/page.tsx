@@ -5,6 +5,8 @@ import CharityPicker from '@/components/charity-picker'
 import { Eye, CheckCircle2, Clock, Trophy, ShieldCheck, Wallet } from 'lucide-react'
 import { Container, Flex, Box, Paper, Title, Text, Badge, Button, Group, Stack, Alert, Card, ActionIcon, Divider, SimpleGrid } from '@mantine/core'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   const supabase = await createServerSupabaseClient()
 
@@ -13,11 +15,15 @@ export default async function DashboardPage() {
   if (!user) redirect('/auth/login')
 
   // Fetch profile to get selected charity and subscription status
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('selected_charity_id, subscription_status, is_admin')
     .eq('id', user.id)
     .single()
+
+  if (profileError) {
+    console.error("Dashboard Profile Fetch Error:", profileError.message)
+  }
 
   // Fetch all active charities for the picker
   const { data: charities } = await supabase
@@ -205,11 +211,8 @@ export default async function DashboardPage() {
                   <Text fw={700}>Admin Panel</Text>
                 </Group>
                 <Stack gap="xs">
-                  <Button component="a" href="/admin/verify" variant="filled" color="indigo.8" fullWidth size="xs">
-                    Verify Scorecards
-                  </Button>
-                  <Button component="a" href="/admin/draw" variant="filled" color="indigo.8" fullWidth size="xs">
-                    Run Monthly Draw
+                  <Button component="a" href="/admin" variant="filled" color="indigo.8" fullWidth size="sm">
+                    Open Admin Dashboard
                   </Button>
                 </Stack>
               </Paper>
