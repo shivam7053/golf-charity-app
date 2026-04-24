@@ -235,7 +235,7 @@ export default async function AdminDrawPage() {
                   <Text size="sm" c="dimmed" fs="italic">This draw is currently unpublished.</Text>
                 </Stack>
                 <form action={publishDraw}>
-                  <Button type="submit" color="green" size="md" leftSection={<Send size={18} />} shadow="md">
+                  <Button type="submit" color="green" size="md" leftSection={<Send size={18} />}>
                     Publish Results
                   </Button>
                 </form>

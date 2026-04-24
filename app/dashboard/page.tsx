@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import ScoreForm from '@/components/score-form'
 import CharityPicker from '@/components/charity-picker'
 import { Eye, CheckCircle2, Clock, Trophy, ShieldCheck, Wallet } from 'lucide-react'
-import { Container, Grid, GridCol, Paper, Title, Text, Badge, Button, Group, Stack, Alert, Card, ActionIcon, Divider, SimpleGrid } from '@mantine/core'
+import { Container, Flex, Box, Paper, Title, Text, Badge, Button, Group, Stack, Alert, Card, ActionIcon, Divider, SimpleGrid } from '@mantine/core'
 
 export default async function DashboardPage() {
   const supabase = await createServerSupabaseClient()
@@ -64,13 +64,13 @@ export default async function DashboardPage() {
 
   return (
     <Container size="lg" py="xl">
-      <Grid gutter="lg">
-        <GridCol span={{ base: 12, md: 8 }}>
-          <Stack gap="md">
+      <Flex gap={{ base: 'md', md: 'xl' }} direction={{ base: 'column', md: 'row' }} align="flex-start">
+        <Box style={{ flex: 2, width: '100%' }}>
+          <Stack gap="lg">
             <Paper withBorder p="xl" radius="md" shadow="sm">
               <Title order={2} mb="xs">Dashboard</Title>
               <Text c="dimmed">
-                Welcome back, <Text span fw={600} c="indigo">{user.email}</Text>!
+                Welcome back, <Text span fw={600} c="indigo">{user.email || 'Golfer'}</Text>!
               </Text>
               {!isActive && (
                 <Alert color="yellow" title="Subscription Inactive" icon={<Clock size={16} />} mt="md">
@@ -190,9 +190,9 @@ export default async function DashboardPage() {
               </Stack>
             </Paper>
           </Stack>
-        </GridCol>
+        </Box>
 
-        <GridCol span={{ base: 12, md: 4 }}>
+        <Box style={{ flex: 1, width: '100%' }}>
           <Stack gap="md">
             <Paper withBorder p="md" radius="md">
               <CharityPicker charities={charities || []} selectedId={profile?.selected_charity_id} />
@@ -225,8 +225,8 @@ export default async function DashboardPage() {
               </Button>
             </form>
           </Stack>
-        </GridCol>
-      </Grid>
+        </Box>
+      </Flex>
     </Container>
   )
 }
