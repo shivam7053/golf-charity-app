@@ -97,13 +97,13 @@ export default async function DashboardPage() {
                 </Card>
                 <Card withBorder radius="md">
                   <Text size="xs" tt="uppercase" fw={700} c="dimmed">Payment Status</Text>
-                  <Text size="md" fw={700} mt={4} component="div">
+                  <Group gap={0} mt={4}>
                     {pendingPayout > 0 ? (
                       <Badge color="orange" variant="light">₹{pendingPayout} Pending Payout</Badge>
                     ) : (
                       <Badge color="green" variant="light">All Payouts Completed</Badge>
                     )}
-                  </Text>
+                  </Group>
                 </Card>
               </SimpleGrid>
             </Paper>
