@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
         remove(name: string, options: CookieOptions) {
           request.cookies.set({
             name,
-            value,
+            value: '',
             ...options,
           })
           response = NextResponse.next({
@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
           })
           response.cookies.set({
             name,
-            value,
+            value: '',
             ...options,
           })
         },
@@ -56,8 +56,12 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Redirect to login if accessing dashboard while unauthenticated
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  // Redirect to login if accessing protected routes while unauthenticated
+  const isProtectedRoute = 
+    request.nextUrl.pathname.startsWith('/dashboard') || 
+    request.nextUrl.pathname.startsWith('/admin')
+
+  if (!user && isProtectedRoute) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
